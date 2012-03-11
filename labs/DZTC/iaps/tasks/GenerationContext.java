@@ -125,10 +125,8 @@ class GenerationContext
 	public GenerationContext(int variant, double R)
 	{
 		r = new Random(_variant = variant);
-		
-		boolean[] qq = {false, false, false, false};
-		quarters = qq;
-		
 		_R = R;
+		
+		quarters = new boolean[] {false, false, false, false};
 	}
 }
