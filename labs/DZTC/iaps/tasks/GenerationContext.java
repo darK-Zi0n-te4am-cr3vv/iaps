@@ -12,6 +12,10 @@ class GenerationContext
 
 	/* COMMON */
 	
+	/* WORKAROUND: to get compatibility with original AreaCanvas.java */
+	static final Quarter[] qTransTable = new Quarter[] 
+		{ Quarter.I, Quarter.IV, Quarter.III, Quarter.II }; 
+		
 	private Quarter getFreeQuarter()
 	{
 		int q;
@@ -19,15 +23,7 @@ class GenerationContext
 		while (quarters[q]);
 		
 		quarters[q] = true;
-		switch(q) /* WORKAROUND: to get compatibility with original AreaCanvas.java */
-		{
-			case 0: return Quarter.I; 
-			case 1: return Quarter.IV; 
-			case 2: return Quarter.III;
-			case 3: return Quarter.II; 
-		}
-		
-		return Quarter.I; // lol
+		return qTransTable[q];
 	}
 	
 	private QuarterCircle createCircle()
