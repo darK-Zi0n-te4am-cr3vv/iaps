@@ -12,7 +12,7 @@ public class QuarterSquare
 		super(q);
 		
 		_w = w;
-		_h = w;
+		_h = h;
 	}
 
 	@Override protected boolean isContainsPt(Point pt)

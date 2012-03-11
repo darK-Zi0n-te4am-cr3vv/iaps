@@ -12,4 +12,9 @@ public class Point
 		_x = x;
 		_y = y;
 	}
+	
+	@Override public String toString()
+	{
+		return "(" + Double.toString(_x) + "; " + Double.toString(_y) + ")";
+	}
 }
