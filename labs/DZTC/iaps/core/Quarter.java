@@ -13,6 +13,11 @@ public enum Quarter
 	
 	private int _aint;
 	
+	public int toInt()
+	{
+		return _aint;
+	}
+	
 	public static Quarter fromInt(int i) 
 		throws IllegalArgumentException
 	{

@@ -202,6 +202,7 @@ class AreaCanvas extends Canvas
 	{
 		g.setColor(new Color(51, 153, 255));
         r.setSeed(variant);
+		g.drawString(Integer.toString(variant), 10, 210);
             
 		drawArc(g);
 		drawRect(g);

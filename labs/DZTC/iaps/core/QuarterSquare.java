@@ -19,4 +19,9 @@ public class QuarterSquare
 	{
 		return Math.abs(pt.getX()) <= _w && Math.abs(pt.getY()) <= _h;
 	}
+	
+	@Override public String toString()
+	{
+		return "[qsquare: W = " + Double.toString(_w) + ", H = " + Double.toString(_h) + ", Q = " + _q.toString() + "]";
+	}
 }

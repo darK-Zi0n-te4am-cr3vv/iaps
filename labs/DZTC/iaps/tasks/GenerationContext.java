@@ -7,15 +7,27 @@ class GenerationContext
 {
 	private Random r;
 	private double _R;
+	private int _variant;
 	private boolean[] quarters;
 
+	/* COMMON */
+	
 	private Quarter getFreeQuarter()
 	{
 		int q;
 		do q = Math.abs(r.nextInt()) % 4;
 		while (quarters[q]);
 		
-		return Quarter.fromInt(q + 1);	
+		quarters[q] = true;
+		switch(q) /* WORKAROUND: to get compatibility with original AreaCanvas.java */
+		{
+			case 0: return Quarter.I; 
+			case 1: return Quarter.IV; 
+			case 2: return Quarter.III;
+			case 3: return Quarter.II; 
+		}
+		
+		return Quarter.I; // lol
 	}
 	
 	private QuarterCircle createCircle()
@@ -28,13 +40,14 @@ class GenerationContext
             case 1: radius = _R / 2; break;
         }
     	
-		return new QuarterCircle(getFreeQuarter(), radius);
+		Quarter q = getFreeQuarter();
+		
+		return new QuarterCircle(q, radius);
 	}
 	
 	private QuarterSquare createSquare()
 	{
 		Quarter q = getFreeQuarter();
-        
 		double w = 0, h = 0;
 		
 		switch(Math.abs(r.nextInt()) % 3)
@@ -62,8 +75,9 @@ class GenerationContext
 	private QuarterTriangle createTriangle()
 	{
 		double w = 0, h = 0;
+		
 		Quarter q = getFreeQuarter();
-        
+		
 		w = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
         h = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
             
@@ -72,6 +86,8 @@ class GenerationContext
 	
 	public IArea createArea()
 	{
+		r.setSeed(_variant);
+	
 		IArea[] areas = {
 			createCircle(),
 			createSquare(),
@@ -81,10 +97,40 @@ class GenerationContext
 		return new ComplexArea(areas);
 	}
 	
+	/* LAB 1 POINTS */
+	
+	private int lab1_nn()
+    {
+        return Math.abs(r.nextInt()) % 5 - 2;
+    }
+
+    private int lab1_ns()
+    {
+        return Math.abs(r.nextInt()) % 3 + 3;
+    }
+		
+	public Point[] generatePointsForLab1()
+	{
+		Point[] pts = {
+			new Point(lab1_ns(), lab1_ns()),
+			new Point(lab1_ns(), lab1_ns()),
+			new Point(lab1_ns(), lab1_ns()),
+			new Point(lab1_ns(), lab1_ns()),
+			new Point(lab1_nn(), lab1_nn())
+		};
+	
+		return pts;
+	}
+
 	public GenerationContext(int variant, double R)
 	{
-		r = new Random();
-		quarters = new boolean[4];
+		System.out.println(variant);
+	
+		r = new Random(_variant = variant);
+		
+		boolean[] qq = {false, false, false, false};
+		quarters = qq;
+		
 		_R = R;
 	}
 }

@@ -4,17 +4,24 @@ public class QuarterCircle
 	extends QuarterArea
 {
 	private double _rr;
+	private double _r;
 	
 
 	public QuarterCircle(Quarter q, double r)
 	{
 		super(q);
 		
+		_r = r;
 		_rr = r * r;
 	}
 
 	@Override protected boolean isContainsPt(Point pt)
 	{
 		return pt.getX() * pt.getX() + pt.getY() * pt.getY() <= _rr;
+	}
+	
+	@Override public String toString()
+	{
+		return "[qcircle: R = " + Double.toString(_r) + ", Q = " + _q.toString() + "]";
 	}
 }

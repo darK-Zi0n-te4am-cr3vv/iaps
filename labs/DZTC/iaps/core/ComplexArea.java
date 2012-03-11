@@ -17,4 +17,13 @@ public class ComplexArea
 		
 		return false;
 	}
+	
+	@Override public String toString()
+	{
+		String s = "";
+	
+		for (IArea area : _areas) s += area.toString() + "\n";
+		
+		return s;
+	}
 }

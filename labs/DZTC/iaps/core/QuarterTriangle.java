@@ -36,4 +36,9 @@ public class QuarterTriangle extends QuarterArea
 		
 		return  pt.getY() >= yMustBe(pt.getX());
 	}
+	
+	@Override public String toString()
+	{
+		return "[qtrig: W = " + Double.toString(_w) + ", H = " + Double.toString(_h) + ", Q = " + _q.toString() + "]";
+	}
 }
