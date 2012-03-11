@@ -3,6 +3,8 @@ UTF-8/RU
 ./decompiled/ - декомпилированные задания к лабам
 
 ./labs/ - лабораторные работы
-./labs/core/ - основные классы для решения задачи
+./labs/.../core/ - основные классы для решения задачи
+./labs/.../tasks/ - генератор вариантов заданий на основе реверс инжиниринга страницы http://www.cs.ifmo.ru/education/discipline/iaps/task.shtml
+
 
 darK-Zi0n-te4am-cr3vv \m/
