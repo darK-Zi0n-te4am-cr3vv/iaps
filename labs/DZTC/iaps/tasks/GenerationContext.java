@@ -33,7 +33,7 @@ class GenerationContext
 	
 	private QuarterSquare createSquare()
 	{
-		int q = getFreeQuarter();
+		Quarter q = getFreeQuarter();
         
 		double w = 0, h = 0;
 		
@@ -61,40 +61,24 @@ class GenerationContext
 	
 	private QuarterTriangle createTriangle()
 	{
-		int w = 0, h = 0, y = 0, x = 0;
-		int q = getQuarter(LINE);
+		double w = 0, h = 0;
+		Quarter q = getFreeQuarter();
         
-		w = 40 * (1 + Math.abs(r.nextInt()) % 2); // R/2 or R
-        h = 40 * (1 + Math.abs(r.nextInt()) % 2); // R/2 or R
-
-		p = new Polygon();
-		p.addPoint(110, 110); // 0, 0
+		w = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
+        h = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
             
-		switch(q)
-        {
-            case 0: 
-                p.addPoint(110 + w, 110); // W, 0
-                p.addPoint(110, 110 - h); // 0, -H
-            break;
-
-            case 1: 
-                p.addPoint(110 + w, 110); // W, 0
-                p.addPoint(110, 110 + h); // 0, H
-            break;
-
-            case 2: 
-                p.addPoint(110 - w, 110); // -W, 0
-                p.addPoint(110, 110 + h); // 0, H
-            break;
-
-            case 3: 
-                p.addPoint(110 - w, 110); // -W, 0
-                p.addPoint(110, 110 - h); // 0,  -H
-            break;
-        }
-    
-		p.addPoint(110, 110); // 110, 110 is (0; 0) // why it's added 2 times?
-        g.fillPolygon(p);
+		return new QuarterTriangle(q, h, w);
+	}
+	
+	public IArea createArea()
+	{
+		IArea[] areas = {
+			createCircle(),
+			createSquare(),
+			createTriangle()
+		};
+		
+		return new ComplexArea(areas);
 	}
 	
 	public GenerationContext(int variant, double R)
