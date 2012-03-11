@@ -46,6 +46,7 @@ public class Entry
 
 	public static void main(String[] args)
 	{
-		for (;;) actions();
+		for (;;) 
+			actions();
 	}
 }
