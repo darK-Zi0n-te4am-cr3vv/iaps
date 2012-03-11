@@ -1,4 +1,5 @@
 @echo off
 
 call clean
-javac ./DZTC/iaps/tests/Tests.java
+rem javac ./DZTC/iaps/tests/Tests.java
+javac ./DZTC/iaps/labs/lab1/Entry.java

@@ -10,37 +10,37 @@ import java.awt.*;
 
 public class Areas extends Applet
 {
-    public Areas()
-    {
-    }
+	public Areas()
+	{
+	}
 
-    public void init()
-    {
-        // Label & text field on a panel
+	public void init()
+	{
+		// Label & text field on a panel
 		variantLabel = new Label("Variant");
-        variantTextField = new TextField(4);
+		variantTextField = new TextField(4);
 		
-        mainPanel = new Panel();
-        mainPanel.setLayout(new FlowLayout());
-        mainPanel.add(variantLabel);
-        mainPanel.add(variantTextField);
+		mainPanel = new Panel();
+		mainPanel.setLayout(new FlowLayout());
+		mainPanel.add(variantLabel);
+		mainPanel.add(variantTextField);
 	
 		// Adding a panel to the up of applet window
-        setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		add(mainPanel, "North");
 		
 		// Adding an area canvas to center
-        areaCanvas = new AreaCanvas();
+		areaCanvas = new AreaCanvas();
 		add(areaCanvas, "Center");
 		
 		// On text input event
-        variantTextField.addActionListener(areaCanvas);
-    
-        validate();
-    }
+		variantTextField.addActionListener(areaCanvas);
+	
+		validate();
+	}
 
-    Label variantLabel;
-    TextField variantTextField;
-    Panel mainPanel;
-    AreaCanvas areaCanvas;
+	Label variantLabel;
+	TextField variantTextField;
+	Panel mainPanel;
+	AreaCanvas areaCanvas;
 }

@@ -35,11 +35,11 @@ class GenerationContext
 		double radius = 0;
 		
 		switch(Math.abs(r.nextInt()) % 2)
-        {
-            case 0: radius = _R; break;
-            case 1: radius = _R / 2; break;
-        }
-    	
+		{
+			case 0: radius = _R; break;
+			case 1: radius = _R / 2; break;
+		}
+		
 		Quarter q = getFreeQuarter();
 		
 		return new QuarterCircle(q, radius);
@@ -51,23 +51,23 @@ class GenerationContext
 		double w = 0, h = 0;
 		
 		switch(Math.abs(r.nextInt()) % 3)
-        {
-            case 0:
-                w = _R; // R
-                h = _R; // R
-            break;
+		{
+			case 0:
+				w = _R; // R
+				h = _R; // R
+			break;
 
-            case 1: 
-                w = _R / 2; // R/2
-                h = _R; // R
-            break;
+			case 1: 
+				w = _R / 2; // R/2
+				h = _R; // R
+			break;
 
-            case 2: 
-                w = _R; // R
-                h = _R / 2; // R/2
-            break;
-        }
-        
+			case 2: 
+				w = _R; // R
+				h = _R / 2; // R/2
+			break;
+		}
+		
 		return new QuarterSquare(q, h, w);
 	}
 	
@@ -79,8 +79,8 @@ class GenerationContext
 		Quarter q = getFreeQuarter();
 		
 		w = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
-        h = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
-            
+		h = (Math.abs(r.nextInt()) % 2) == 0 ? _R / 2 : _R; 
+			
 		return new QuarterTriangle(q, h, w);
 	}
 	
@@ -100,14 +100,14 @@ class GenerationContext
 	/* LAB 1 POINTS */
 	
 	private int lab1_nn()
-    {
-        return (Math.abs(r.nextInt()) % 5) - 2;
-    }
+	{
+		return (Math.abs(r.nextInt()) % 5) - 2;
+	}
 
-    private int lab1_ns()
-    {
-        return (Math.abs(r.nextInt()) % 3) + 3;
-    }
+	private int lab1_ns()
+	{
+		return (Math.abs(r.nextInt()) % 3) + 3;
+	}
 		
 	public Point[] generatePointsForLab1()
 	{
