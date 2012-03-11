@@ -101,21 +101,21 @@ class GenerationContext
 	
 	private int lab1_nn()
     {
-        return Math.abs(r.nextInt()) % 5 - 2;
+        return (Math.abs(r.nextInt()) % 5) - 2;
     }
 
     private int lab1_ns()
     {
-        return Math.abs(r.nextInt()) % 3 + 3;
+        return (Math.abs(r.nextInt()) % 3) + 3;
     }
 		
 	public Point[] generatePointsForLab1()
 	{
 		Point[] pts = {
 			new Point(lab1_ns(), lab1_ns()),
-			new Point(lab1_ns(), lab1_ns()),
-			new Point(lab1_ns(), lab1_ns()),
-			new Point(lab1_ns(), lab1_ns()),
+			new Point(lab1_ns(), -lab1_ns()),
+			new Point(-lab1_ns(), -lab1_ns()),
+			new Point(-lab1_ns(), lab1_ns()),
 			new Point(lab1_nn(), lab1_nn())
 		};
 	
@@ -124,8 +124,6 @@ class GenerationContext
 
 	public GenerationContext(int variant, double R)
 	{
-		System.out.println(variant);
-	
 		r = new Random(_variant = variant);
 		
 		boolean[] qq = {false, false, false, false};

@@ -9,7 +9,7 @@ public class Tests
 {
 	public static void main(String[] args)
 	{
-		TaskForLab1 task = TaskGenerator.Lab1(52664, 20);
+		TaskForLab1 task = TaskGenerator.Lab1(42345, 20);
 		System.out.println(task.toString());
 		
 	}
