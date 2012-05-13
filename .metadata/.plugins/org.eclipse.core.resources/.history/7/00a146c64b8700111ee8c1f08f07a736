@@ -1,0 +1,156 @@
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import java.io.*;
+import java.util.ArrayList;
+
+
+public class MainFrame extends JFrame 
+{
+	private ECanvas _canvas = new ECanvas();
+	public ECanvas getCanvas() { return _canvas; }
+	
+	private JPanel _controlsPanel = new JPanel();
+	public JPanel getControlsPanel() { return _controlsPanel; }
+	
+	private double _R = 1;
+	
+	class MainFrameEventHandler extends WindowAdapter 
+	{
+		
+	}
+
+	class CanvasEventHandler extends MouseAdapter 
+	{
+		
+	}
+	
+	class XYRChangesHandler implements IXYRHandler
+	{
+		public void onXChanged(double newX)
+		{}
+		
+		public void onYChanged(double newX)
+		{}
+		
+		public void onRChanged(double newX)
+		{}
+	}
+	
+	XYRChangesHandler _xyrHandler = new XYRChangesHandler();
+	
+	private void initComponents()
+	{
+		TaskCreator cc = new TaskCreator(_xyrHandler, 1.0);
+		
+		setLayout(new BorderLayout());
+		setSize(Const.WINDOW_SIZE_X, Const.WINDOW_SIZE_Y);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new MainFrameEventHandler());
+        setResizable(false);    
+		
+		/* canvas */
+		getCanvas().addMouseListener(new CanvasEventHandler());
+		getCanvas().setSize(Const.AREA_SIZE_X, Const.AREA_SIZE_Y);
+		add(getCanvas(), BorderLayout.CENTER);
+		
+		/* panel */
+        add(getControlsPanel(), BorderLayout.SOUTH);
+        
+        /* X */
+		Label xLabel = new Label("X = ");
+        getControlsPanel().add(xLabel);
+		getControlsPanel().add(cc.createXComponent());
+        
+		/* Y */
+		Label yLabel = new Label("Y =");
+	    getControlsPanel().add(yLabel);
+	    getControlsPanel().add(cc.createYComponent());
+	    
+	    /* R */
+	    Label rLabel = new Label("R =");
+	    getControlsPanel().add(rLabel);
+	    getControlsPanel().add(cc.createRComponent());
+	    
+	    setVisible(true);
+	}
+	
+	
+	public MainFrame()
+	{
+		initComponents();
+	}
+	
+	
+	private void drawArea(Graphics g)
+	{
+        /* filling background */
+		g.setColor(Color.white);
+        g.fillRect(0, 0, Const.AREA_SIZE_X, Const.AREA_SIZE_Y);
+        
+        /* axis */
+        g.setColor(Color.black);
+        g.drawLine(Const.HALF_X - Const.LENGTH_X, Const.HALF_Y, Const.HALF_X + Const.LENGTH_X, Const.HALF_Y);
+        g.drawLine(Const.HALF_X, Const.HALF_Y - Const.LENGTH_Y, Const.HALF_X, Const.HALF_Y + Const.LENGTH_Y);
+
+        g.drawLine(Const.HALF_X, Const.HALF_Y - Const.LENGTH_Y,
+        		Const.HALF_X - Const.INDENT / 2, Const.HALF_Y - Const.LENGTH_Y + Const.INDENT);
+        g.drawLine(Const.HALF_X, Const.HALF_Y - Const.LENGTH_Y,
+        		Const.HALF_X + Const.INDENT / 2, Const.HALF_Y - Const.LENGTH_Y + Const.INDENT);
+        g.drawLine(Const.HALF_X + Const.LENGTH_X, Const.HALF_Y,
+        		Const.HALF_X + Const.LENGTH_X - Const.INDENT, Const.HALF_Y - Const.INDENT / 2);
+        g.drawLine(Const.HALF_X + Const.LENGTH_X, Const.HALF_Y,
+        		Const.HALF_X + Const.LENGTH_X - Const.INDENT, Const.HALF_Y + Const.INDENT / 2);
+
+        /* dots */
+        for (int i = -4; i <= 4; i++) {
+            g.drawLine(Const.HALF_X - Const.INDENT / 2, Const.HALF_Y + i * Const.STEP,
+            		Const.HALF_X + Const.INDENT / 2, Const.HALF_Y + i * Const.STEP);
+        }
+        
+        for (int i = -10; i<= 10; i++) {
+            g.drawLine(Const.HALF_X + i * Const.STEP, Const.HALF_Y - Const.INDENT / 2,
+            		Const.HALF_X + i * Const.STEP, Const.HALF_Y + Const.INDENT / 2);
+        }
+
+        g.drawString("Y", Const.HALF_X + Const.INDENT, Const.HALF_Y - Const.LENGTH_Y + Const.INDENT);
+        g.drawString("X", Const.HALF_X + Const.LENGTH_X - Const.INDENT, Const.HALF_Y - Const.INDENT);
+        
+        {
+        	int i;
+        	double x;
+        	for (x = -5 * _R, i = -10; i <= 10; i++, x += _R/2) 
+        	{
+	            if (i == 0) continue;
+	            g.drawString(Double.toString(x), Const.HALF_X + i * Const.STEP - Const.INDENT,
+	            		Const.HALF_Y - Const.INDENT);
+	            
+	            if ((i >= -4) && (i <= 4)) {
+	                g.drawString(Double.toString(x), Const.HALF_X + Const.INDENT,
+	                		Const.HALF_Y - i * Const.STEP + Const.INDENT / 2);
+	            }
+        	}
+        }
+	}
+	
+	class ECanvas extends Canvas
+	{
+		@Override
+		public void paint(Graphics g)
+		{
+			drawArea(g);
+		}
+	}
+	
+	@Override
+	public void paint(Graphics g) 
+	{
+        if (getCanvas().getGraphics() != null)
+        {
+        	//drawArea(getCanvas().getGraphics());
+            getCanvas().repaint();
+            
+        }
+    }
+}

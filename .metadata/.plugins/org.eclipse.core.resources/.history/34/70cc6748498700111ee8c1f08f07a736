@@ -1,0 +1,97 @@
+import java.awt.Choice;
+import java.awt.Component;
+import java.awt.List;
+import java.awt.Scrollbar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
+import DZTC.iaps.core.Quarter;
+import DZTC.iaps.core.QuarterCircle;
+import DZTC.iaps.core.QuarterSquare;
+import DZTC.iaps.core.QuarterTriangle;
+
+
+public class TaskCreator implements ITaskCreator {
+
+	private IXYRHandler _handler;
+	private double _R;
+	public TaskCreator(IXYRHandler handler, double R)
+	{
+		_handler = handler;
+		_R = R;
+	}
+	
+	@Override
+	public Component createXComponent() 
+	{
+		Scrollbar xScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 1, -5, 4);
+        xScrollbar.addAdjustmentListener(new AdjustmentListener() {
+			@Override public void adjustmentValueChanged(AdjustmentEvent ae) {
+				_handler.onXChanged(ae.getValue());
+			}
+		});
+			
+		return xScrollbar;
+	}
+
+	@Override
+	public Component createYComponent() 
+	{
+		List yList = new List(2);
+		
+		ArrayList<Double> values = new ArrayList<Double>();
+	    for (double j = 2; j >= -2; j -= 0.5) {
+	    	values.add(j);
+	    	yList.add(Double.toString(j));
+	    }
+	    
+	    yList.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_handler.onYChanged(Double.parseDouble(e.getActionCommand()));
+			}
+		});
+	    
+	    return yList;
+	}
+
+	@Override
+	public Component createRComponent() 
+	{
+		Choice rChoice = new Choice();        
+	    for (int i = 1; i <= 5; i++) {
+	    	rChoice.add(Integer.toString(i));
+	    }
+	    
+	    rChoice.addItemListener(new  ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				_handler.onRChanged( Double.parseDouble((String) arg0.getItem()));
+			}
+		});
+	    
+	    return rChoice;
+	}
+
+	@Override
+	public QuarterTriangle createQuarterTriangle() {
+		return new QuarterTriangle(Quarter.I, _R, _R);
+	}
+
+	@Override
+	public QuarterCircle createQuarterCircle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public QuarterSquare createQuarterSquare() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

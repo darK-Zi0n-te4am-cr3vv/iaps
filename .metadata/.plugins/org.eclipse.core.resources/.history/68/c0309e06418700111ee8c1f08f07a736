@@ -1,0 +1,14 @@
+
+class Const
+{
+	public final int WINDOW_SIZE_X = 900;
+    public final int WINDOW_SIZE_Y = 520;
+    public final int AREA_SIZE_X   = 900;
+    public final int AREA_SIZE_Y   = 460;
+    public final int HALF_X        = AREA_SIZE_X / 2;
+    public final int HALF_Y        = AREA_SIZE_Y / 2;
+    public final int LENGTH_X      = 430;
+    public final int LENGTH_Y      = 200;
+    public final int INDENT        = 10;
+    public final int STEP          = 40;
+}

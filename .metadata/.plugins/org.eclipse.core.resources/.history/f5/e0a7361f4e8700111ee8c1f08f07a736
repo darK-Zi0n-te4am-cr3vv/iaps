@@ -1,0 +1,199 @@
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+import DZTC.iaps.core.Quarter;
+import DZTC.iaps.core.QuarterCircle;
+import DZTC.iaps.core.QuarterSquare;
+import DZTC.iaps.core.QuarterTriangle;
+
+import java.io.*;
+import java.util.ArrayList;
+
+
+public class MainFrame extends JFrame 
+{
+	private ECanvas _canvas = new ECanvas();
+	public ECanvas getCanvas() { return _canvas; }
+	
+	private JPanel _controlsPanel = new JPanel();
+	public JPanel getControlsPanel() { return _controlsPanel; }
+	
+	private double _R = 1;
+	
+	class MainFrameEventHandler extends WindowAdapter 
+	{
+		
+	}
+
+	class CanvasEventHandler extends MouseAdapter 
+	{
+		
+	}
+	
+	class XYRChangesHandler implements IXYRHandler
+	{
+		public void onXChanged(double newX)
+		{}
+		
+		public void onYChanged(double newX)
+		{}
+		
+		public void onRChanged(double newX)
+		{}
+	}
+	
+	XYRChangesHandler _xyrHandler = new XYRChangesHandler();
+	
+	private QuarterCircle _circle;
+	private QuarterSquare _square;
+	private QuarterTriangle _triangle;
+	
+	private void initComponents()
+	{
+		TaskCreator tc = new TaskCreator(_xyrHandler, 1.0);
+		
+		_circle = tc.createQuarterCircle();
+		_square = tc.createQuarterSquare();
+		_triangle = tc.createQuarterTriangle();
+		
+		setLayout(new BorderLayout());
+		setSize(Const.WINDOW_SIZE_X, Const.WINDOW_SIZE_Y);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new MainFrameEventHandler());
+        setResizable(false);    
+		
+		/* canvas */
+		getCanvas().addMouseListener(new CanvasEventHandler());
+		getCanvas().setSize(Const.AREA_SIZE_X, Const.AREA_SIZE_Y);
+		add(getCanvas(), BorderLayout.CENTER);
+		
+		/* panel */
+        add(getControlsPanel(), BorderLayout.SOUTH);
+        
+        /* X */
+		Label xLabel = new Label("X = ");
+        getControlsPanel().add(xLabel);
+		getControlsPanel().add(tc.createXComponent());
+        
+		/* Y */
+		Label yLabel = new Label("Y =");
+	    getControlsPanel().add(yLabel);
+	    getControlsPanel().add(tc.createYComponent());
+	    
+	    /* R */
+	    Label rLabel = new Label("R =");
+	    getControlsPanel().add(rLabel);
+	    getControlsPanel().add(tc.createRComponent());
+	    
+	    setVisible(true);
+	}
+	
+	
+	public MainFrame()
+	{
+		initComponents();
+	}
+	
+	private double getScaleFactor()
+	{
+		return _R / (4 * Const.STEP);
+	}
+	
+	private int getStartAngle(Quarter q)
+	{
+		switch (q)
+		{
+			case I   : return 0;
+			case II  : return 90;
+			case III : return 180;
+			case IV  : return 270;
+			
+		}
+		
+		return 0;
+	}
+	
+	private void drawCircle(Graphics g, QuarterCircle c)
+	{
+		 g.fillArc(Const.HALF_X -   Const.STEP,  Const.HALF_Y -  Const.STEP, 
+				 (int)(c.getR() / getScaleFactor()), (int)(c.getR() / getScaleFactor()),
+				 getStartAngle(c.getQuarter()), 90); 
+	}
+	
+	private void drawArea(Graphics g)
+	{
+        /* filling background */
+		g.setColor(Color.white);
+        g.fillRect(0, 0, Const.AREA_SIZE_X, Const.AREA_SIZE_Y);
+        
+        /* area */
+        g.setColor(Color.CYAN);
+        drawCircle(g, _circle);
+        
+        /* axis */
+        g.setColor(Color.black);
+        g.drawLine(Const.HALF_X - Const.LENGTH_X, Const.HALF_Y, Const.HALF_X + Const.LENGTH_X, Const.HALF_Y);
+        g.drawLine(Const.HALF_X, Const.HALF_Y - Const.LENGTH_Y, Const.HALF_X, Const.HALF_Y + Const.LENGTH_Y);
+
+        g.drawLine(Const.HALF_X, Const.HALF_Y - Const.LENGTH_Y,
+        		Const.HALF_X - Const.INDENT / 2, Const.HALF_Y - Const.LENGTH_Y + Const.INDENT);
+        g.drawLine(Const.HALF_X, Const.HALF_Y - Const.LENGTH_Y,
+        		Const.HALF_X + Const.INDENT / 2, Const.HALF_Y - Const.LENGTH_Y + Const.INDENT);
+        g.drawLine(Const.HALF_X + Const.LENGTH_X, Const.HALF_Y,
+        		Const.HALF_X + Const.LENGTH_X - Const.INDENT, Const.HALF_Y - Const.INDENT / 2);
+        g.drawLine(Const.HALF_X + Const.LENGTH_X, Const.HALF_Y,
+        		Const.HALF_X + Const.LENGTH_X - Const.INDENT, Const.HALF_Y + Const.INDENT / 2);
+
+        /* dots */
+        for (int i = -4; i <= 4; i++) {
+            g.drawLine(Const.HALF_X - Const.INDENT / 2, Const.HALF_Y + i * Const.STEP,
+            		Const.HALF_X + Const.INDENT / 2, Const.HALF_Y + i * Const.STEP);
+        }
+        
+        for (int i = -10; i<= 10; i++) {
+            g.drawLine(Const.HALF_X + i * Const.STEP, Const.HALF_Y - Const.INDENT / 2,
+            		Const.HALF_X + i * Const.STEP, Const.HALF_Y + Const.INDENT / 2);
+        }
+
+        g.drawString("Y", Const.HALF_X + Const.INDENT, Const.HALF_Y - Const.LENGTH_Y + Const.INDENT);
+        g.drawString("X", Const.HALF_X + Const.LENGTH_X - Const.INDENT, Const.HALF_Y - Const.INDENT);
+        
+        {
+        	int i;
+        	double x;
+        	for (x = -5 * _R, i = -10; i <= 10; i++, x += _R/2) 
+        	{
+	            if (i == 0) continue;
+	            g.drawString(Double.toString(x), Const.HALF_X + i * Const.STEP - Const.INDENT,
+	            		Const.HALF_Y - Const.INDENT);
+	            
+	            if ((i >= -4) && (i <= 4)) {
+	                g.drawString(Double.toString(x), Const.HALF_X + Const.INDENT,
+	                		Const.HALF_Y - i * Const.STEP + Const.INDENT / 2);
+	            }
+        	}
+        }
+        
+        
+	}
+	
+	class ECanvas extends Canvas
+	{
+		@Override
+		public void paint(Graphics g)
+		{
+			drawArea(g);
+		}
+	}
+	
+	@Override
+	public void paint(Graphics g) 
+	{
+        if (getCanvas().getGraphics() != null)
+        {
+            getCanvas().repaint();    
+        }
+    }
+}

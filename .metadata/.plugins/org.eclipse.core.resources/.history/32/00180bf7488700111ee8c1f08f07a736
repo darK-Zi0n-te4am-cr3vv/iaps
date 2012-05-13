@@ -1,0 +1,6 @@
+import DZTC.iaps.core.QuarterTriangle;
+
+public interface IAreaCreator 
+{
+	public QuarterTriangle createQuarterTriangle();
+}

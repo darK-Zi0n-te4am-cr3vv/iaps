@@ -1,0 +1,30 @@
+import java.awt.Component;
+
+
+public class ComponentCreator implements IComponentCreator {
+
+	private IXYRHandler _handler;
+	public ComponentCreator(IXYRHandler handler)
+	{
+		_handler = handler;
+	}
+	
+	@Override
+	public Component createXComponent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Component createYComponent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Component createRComponent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

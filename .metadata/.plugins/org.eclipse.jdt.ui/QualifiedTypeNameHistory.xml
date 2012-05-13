@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.Console"/>
+<fullyQualifiedTypeName name="Const"/>
+<fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
+<fullyQualifiedTypeName name="MainFrame.MainFrameEventHandler"/>
+<fullyQualifiedTypeName name="MainFrame.CanvasEventHandler"/>
+<fullyQualifiedTypeName name="MainFrame"/>
+<fullyQualifiedTypeName name="java.awt.event.AdjustmentListener"/>
+<fullyQualifiedTypeName name="MainFrame.XYRAdapter"/>
+<fullyQualifiedTypeName name="MainFrame.XYRChangesHandler"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="MainFrame.yListActionListener"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.awt.event.ComponentListener"/>
+<fullyQualifiedTypeName name="java.awt.event.ItemListener"/>
+<fullyQualifiedTypeName name="java.awt.Component"/>
+<fullyQualifiedTypeName name="IXYRHandler"/>
+<fullyQualifiedTypeName name="ComponentCreator"/>
+<fullyQualifiedTypeName name="IAreaCreator"/>
+<fullyQualifiedTypeName name="IComponentCreator"/>
+<fullyQualifiedTypeName name="ITaskCreator"/>
+<fullyQualifiedTypeName name="java.awt.Canvas"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="java.awt.Graphics"/>
+<fullyQualifiedTypeName name="DZTC.iaps.core.QuarterSquare"/>
+<fullyQualifiedTypeName name="DZTC.iaps.core.QuarterTriangle"/>
+<fullyQualifiedTypeName name="DZTC.iaps.core.QuarterCircle"/>
+<fullyQualifiedTypeName name="DZTC.iaps.core.Quarter"/>
+</qualifiedTypeNameHistroy>

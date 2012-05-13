@@ -1,0 +1,5 @@
+public interface IXYRHandler {
+	onXChanged(double newX);
+	onYChanged(double newY);
+	onRChanged(double newR);
+}

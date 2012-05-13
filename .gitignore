@@ -1,1 +1,5 @@
 *.class
+/lab2/nbproject/private/
+/lab2/build/
+/lab2/dist/
+*.zip

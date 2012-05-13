@@ -117,6 +117,10 @@ class GenerationContext
 	
 		return pts;
 	}
+	
+	/* LAB 2 COMPONENTS */
+	
+	
 
 	public GenerationContext(int variant, double R)
 	{
