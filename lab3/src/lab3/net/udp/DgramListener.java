@@ -70,27 +70,40 @@ public class DgramListener
             while (true)
             {
                 byte[] buffer = new byte[BUFFER_SIZE];
-           
-                DatagramPacket packet = new DatagramPacket(buffer, BUFFER_SIZE);
-                ByteArrayInputStream stream = new ByteArrayInputStream(buffer);
-            
-                ByteArrayOutputStream ostream = new ByteArrayOutputStream();
                 
+                final ByteArrayInputStream stream = new ByteArrayInputStream(buffer);
+                final DatagramPacket packet = new DatagramPacket(buffer, BUFFER_SIZE);
+               
                 try
                 {
                     stream.reset();
                     _socket.receive(packet);
+       
+                    Thread t = new Thread(new Runnable() {
+                        @Override  public void run() 
+                        {
+                            try {
+                                ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+
+                                NetResponse response = NotifyHandler(RequestStreamer.ReadNetRequest(stream));
+
+                                ResponseStreamer.WriteNetResponse(response, ostream);
+
+                                byte[] obuf =ostream.toByteArray();
+
+                                DatagramPacket opacket = new DatagramPacket(obuf, obuf.length, 
+                                        packet.getAddress(), packet.getPort());
+
+                                _socket.send(opacket);
+                            } catch (Exception e) {
+                                // а что поделать
+                            }
+                        }
+                      
+                    });
                     
-                    NetResponse response = NotifyHandler(RequestStreamer.ReadNetRequest(stream));
+                    t.run();
                     
-                    ResponseStreamer.WriteNetResponse(response, ostream);
-                    
-                    byte[] obuf =ostream.toByteArray();
-                   
-                    DatagramPacket opacket = new DatagramPacket(obuf, obuf.length, 
-                            packet.getAddress(), packet.getPort());
-                    
-                    _socket.send(opacket);
                 }
                 catch(SocketException se)
                 {

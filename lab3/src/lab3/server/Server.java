@@ -14,7 +14,6 @@ import lab3.net.udp.DgramListener;
 
 public class Server
 {
-   public final static int PORT = 8080;
     
     public Server()
     {
