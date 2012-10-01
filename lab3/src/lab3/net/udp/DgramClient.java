@@ -15,7 +15,7 @@ public class DgramClient
     implements INetClient
 {
     private static final int BUFFER_SIZE = 1024;
-    private static final int SO_TIMEOUT = 10000;
+    private static final int SO_TIMEOUT = 1000;
     
     
     private int _port;

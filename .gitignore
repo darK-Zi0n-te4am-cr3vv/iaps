@@ -3,3 +3,6 @@
 /lab2/build/
 /lab2/dist/
 *.zip
+/lab3/build/
+/lab3/dist/
+*.jar

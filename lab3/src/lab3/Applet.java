@@ -9,6 +9,8 @@ public class Applet
     @Override public void init()
     {
         MainFrame frame = new MainFrame("127.0.0.1");
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        add(frame);
+        
+       // frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }

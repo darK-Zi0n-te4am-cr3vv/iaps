@@ -8,10 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import lab2.Const;
 
-/**
- *
- * @author C.c
- */
 public class Logger 
 {
     private PrintWriter _writer;
@@ -63,6 +59,5 @@ public class Logger
                 /* supressed */
             }
         }
-    }
-    
+    } 
 }

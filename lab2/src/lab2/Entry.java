@@ -7,5 +7,7 @@ public class Entry
     public static void main(String[] args)
     {
         MainFrame frame = new MainFrame();
+        //NewJFrame jf=  new NewJFrame();
+        //jf.setVisible(true);
     }
 }

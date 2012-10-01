@@ -30,6 +30,7 @@ abstract class qBase
         }
     }
     
+    @Override
     public boolean checkPoint(Point pt)
     {
         return checkQuad(pt) && checkPointInternal(pt);

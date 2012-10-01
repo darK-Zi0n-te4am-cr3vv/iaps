@@ -26,7 +26,7 @@ import lab3.ui.render.AreaRender;
 import lab3.ui.render.AxisRender;
 
 
-public class MainFrame extends JFrame 
+public class MainFrame extends JPanel 
 {
     private final IxControl _xControl;
     private final IxControl _yControl;
@@ -52,11 +52,11 @@ public class MainFrame extends JFrame
     {   
         Dimension canvasSize = new Dimension(Const.AREA_SIZE_X, Const.AREA_SIZE_Y);
         
+        setLayout(new BorderLayout());
+        
         JPanel canvasPanel = new JPanel();
         JPanel canvasPanel2 = new JPanel();
      
-        Filler fl = new Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(32000, 32000));
-        
         canvasPanel2.setPreferredSize(canvasSize);
         canvasPanel2.setMaximumSize(canvasSize);
         _canvas.setPreferredSize(canvasSize);
@@ -81,9 +81,9 @@ public class MainFrame extends JFrame
         canvasPanel.add(canvasPanel2);
         canvasPanel.add(Box.createVerticalGlue(), BorderLayout.PAGE_END);
         
-        add(canvasPanel, BorderLayout.CENTER);
+        add(canvasPanel, BorderLayout.NORTH);
         
-        addWindowListener(new MainFrameListener(this));
+        //addWindowListener(new MainFrameListener(this));
         
         AreaBuilder ab = new AreaBuilder();
         _area = ab.getArea();
@@ -92,7 +92,7 @@ public class MainFrame extends JFrame
         _rControl = ab.getRControl();
         
         JPanel controlPanel = new JPanel();
-        add(controlPanel, BorderLayout.PAGE_END);
+        add(controlPanel, BorderLayout.SOUTH);
         
         _xControl.setPanel(controlPanel);
         _yControl.setPanel(controlPanel);
@@ -123,7 +123,7 @@ public class MainFrame extends JFrame
             }
         });
         
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(Const.WINDOW_SIZE_X, Const.WINDOW_SIZE_Y); 
         //setResizable(false);
         
